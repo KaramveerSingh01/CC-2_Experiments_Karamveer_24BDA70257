@@ -237,3 +237,91 @@ ListNode(int x, ListNode *next) : val(x), next(next) {}
 }
 
 };
+
+
+
+CC-2_Exp_9 (Karamveer Singh_24BDA70257)
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> subset;
+
+    void backtrack(vector<int>& nums, int index) {
+        ans.push_back(subset);
+
+        for (int i = index; i < nums.size(); i++) {
+            subset.push_back(nums[i]);
+            backtrack(nums, i + 1);
+            subset.pop_back();
+        }
+    }
+
+    vector<vector<int>> subsets(vector<int>& nums) {
+        backtrack(nums, 0);
+        return ans;
+    }
+};
+
+
+
+CC-2_Exp_10 (Karamveer Singh_24BDA70257)
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> curr;
+
+    void backtrack(vector<int>& candidates, int target, int index) {
+        if (target == 0) {
+            ans.push_back(curr);
+            return;
+        }
+
+        if (target < 0)
+            return;
+
+        for (int i = index; i < candidates.size(); i++) {
+            curr.push_back(candidates[i]);
+            backtrack(candidates, target - candidates[i], i);
+            curr.pop_back();
+        }
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        backtrack(candidates, target, 0);
+        return ans;
+    }
+};
+
+
+
+
+CC-2_Exp_11 (Karamveer Singh_24BDA70257)
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || root == p || root == q)
+            return root;
+
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+
+        if (left && right)
+            return root;
+
+        return left ? left : right;
+    }
+};
+
+
+
