@@ -1,0 +1,14 @@
+CC-2_Exp_1 (Karamveer Singh_24BDA70257) 
+
+class Solution { public: bool containsNearbyDuplicate(vector& nums, int k) { unordered_map<int, int> lastIndex;
+for (int i = 0; i < nums.size(); i++) {
+    if (lastIndex.count(nums[i])) {
+        if (i - lastIndex[nums[i]] <= k)
+            return true;
+    }
+    lastIndex[nums[i]] = i;
+}
+
+return false;
+
+} };
