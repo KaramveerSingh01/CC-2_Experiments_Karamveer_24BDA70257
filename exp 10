@@ -1,0 +1,21 @@
+CC-2_Exp_10 (Karamveer Singh_24BDA70257) 
+
+class Solution { public: vector<vector> ans; vector curr;
+void backtrack(vector<int>& candidates, int target, int index) {
+    if (target == 0) {
+        ans.push_back(curr);
+        return;
+    }
+    if (target < 0)
+        return;
+    for (int i = index; i < candidates.size(); i++) {
+        curr.push_back(candidates[i]);
+        backtrack(candidates, target - candidates[i], i);
+        curr.pop_back();
+    }
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    backtrack(candidates, target, 0);
+    return ans;
+}
+};
